@@ -62,7 +62,9 @@ export function setComputedStore<
   const updateEvent = setEvent<OriginalStoreVal>();
 
   function transformValue(val: OriginalStoreVal) {
-    return typeof transform === 'function' ? transform(val) : val;
+    return typeof transform === 'function'
+      ? transform(val)
+      : (val as unknown as ComputedStoreVal);
   }
 
   store.addComputedListener({
