@@ -22,8 +22,9 @@ export namespace SetAsyncEvent {
 }
 
 export namespace SetComputedStore {
-  export interface Args<Val> {
+  export interface Args<Val, ComputedStoreVal> {
     store: Store<Val>;
-    condition: (value: Val) => boolean;
+    condition?: (value: Val) => boolean;
+    transform?: (value: Val) => ComputedStoreVal;
   }
 }

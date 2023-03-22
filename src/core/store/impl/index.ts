@@ -51,19 +51,27 @@ export function setStore<Val>(initialValue: Val, options?: StoreOptions) {
   return new Store(initialValue, options);
 }
 
-export function setComputedStore<Val>({
+export function setComputedStore<
+  OriginalStoreVal,
+  ComputedStoreVal = OriginalStoreVal
+>({
   store,
   condition,
-}: SetComputedStore.Args<Val>) {
-  const updateEvent = setEvent<Val>();
+  transform,
+}: SetComputedStore.Args<OriginalStoreVal, ComputedStoreVal>) {
+  const updateEvent = setEvent<OriginalStoreVal>();
+
+  function transformValue(val: OriginalStoreVal) {
+    return typeof transform === 'function' ? transform(val) : val;
+  }
 
   store.addComputedListener({
-    condition,
+    condition: condition ?? (() => true),
     fn: val => updateEvent(val),
   });
 
-  return new Store(store.getState()).on(
+  return new Store(transformValue(store.getState())).on(
     updateEvent.event,
-    (_, payload) => payload
+    (_, payload) => transformValue(payload)
   );
 }
