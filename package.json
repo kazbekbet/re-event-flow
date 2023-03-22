@@ -1,0 +1,13 @@
+{
+  "name": "re-event",
+  "version": "0.1.0",
+  "private": false,
+  "devDependencies": {
+    "@types/use-sync-external-store": "^0.0.3",
+    "prettier": "^2.8.6",
+    "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "use-sync-external-store": "^1.2.0"
+  }
+}

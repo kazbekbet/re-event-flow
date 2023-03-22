@@ -1,0 +1,29 @@
+{
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "tabWidth": 2,
+  "semi": true,
+  "arrowParens": "avoid",
+  "jsxBracketSameLine": false,
+  "importOrder": [
+    "^react(.*)",
+    "<THIRD_PARTY_MODULES>",
+    "^./components/(.*)$",
+    "^./*.*.scss",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "overrides": [
+    {
+      "files": "**/*.scss",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ],
+  "bracketSpacing": true,
+  "proseWrap": "never",
+  "quoteProps": "consistent"
+}
