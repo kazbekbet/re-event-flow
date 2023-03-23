@@ -79,7 +79,11 @@ function AsyncStatus() {
 function Performance() {
   const performance = useStore(model.millionIncrementsPerformanceStore);
 
-  return <>{performance && <p>1 million increments performs on: {performance} ms.</p>}</>;
+  return (
+    <>
+      {Boolean(performance) && <p>1 million increments performs on: {performance} ms.</p>}
+    </>
+  );
 }
 
 /**
