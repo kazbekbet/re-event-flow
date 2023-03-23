@@ -27,20 +27,17 @@ export class Store<Val> {
     fn: (value: Val) => unknown;
   }> = new Set();
 
-  //TODO: привязка к реакту, избавиться
-  private readonly reactListeners: Set<Function> = new Set();
+  private readonly viewListeners: Set<Function> = new Set();
 
-  //TODO: привязка к реакту, избавиться
   subscribe = (listener: Function) => {
-    this.reactListeners.add(listener);
+    this.viewListeners.add(listener);
     return () => {
-      this.reactListeners.delete(listener);
+      this.viewListeners.delete(listener);
     };
   };
 
-  //TODO: привязка к реакту, избавиться
-  private notifyReactListeners() {
-    this.reactListeners.forEach(listener => listener());
+  private notifyViewListeners() {
+    this.viewListeners.forEach(listener => listener());
   }
 
   public getState = () => {
@@ -48,22 +45,56 @@ export class Store<Val> {
   };
 
   public on<Payload>(
-    event: Event<Payload>,
+    { event }: { event: Event<Payload> },
     reducer: (state: Val, value: Payload, initialValue: Val) => Val
   ) {
     const subscriber = new SubscriberImpl(event);
     this.subscribers.add(subscriber);
 
-    subscriber.listen<void, Payload>(val => {
-      this.prevValue = this.value;
-      this.value = reducer(this.value, val, this.initialValue);
-      this.watcherFn(this.value);
-      this.log();
-      this.notifyComputedListeners(this.value);
-      this.notifyReactListeners();
+    this.setListener(subscriber, {
+      isUpdatePrev: true,
+      reducer,
     });
 
     return this;
+  }
+
+  public clear({ event }: { event: Event<void> }) {
+    const subscriber = new SubscriberImpl(event);
+
+    this.setListener(subscriber, {
+      isSetInitial: true,
+    });
+
+    return this;
+  }
+
+  private setListener<Payload>(
+    subscriber: Subscriber<Payload>,
+    {
+      isUpdatePrev,
+      isSetInitial,
+      reducer,
+    }: {
+      isSetInitial?: boolean;
+      isUpdatePrev?: boolean;
+      reducer?: (state: Val, value: Payload, initialValue: Val) => Val;
+    }
+  ) {
+    subscriber.listen<void, Payload>(val => {
+      if (isUpdatePrev) this.prevValue = this.value;
+
+      if (isSetInitial) this.value = this.initialValue;
+
+      if (typeof reducer === 'function') {
+        this.value = reducer(this.value, val, this.initialValue);
+      }
+
+      this.notifyComputedListeners(this.value);
+      this.watcherFn(this.value);
+      this.log();
+      this.notifyViewListeners();
+    });
   }
 
   public watch(fn: (val: Val) => void) {
@@ -81,19 +112,6 @@ export class Store<Val> {
 
       this.subscribers.clear();
       this.value = this.initialValue;
-    });
-
-    return this;
-  }
-
-  public clear(event: Event<void>) {
-    const subscriber = new SubscriberImpl(event);
-
-    subscriber.listen(_ => {
-      this.value = this.initialValue;
-      this.watcherFn(this.value);
-      this.log();
-      this.notifyReactListeners();
     });
 
     return this;

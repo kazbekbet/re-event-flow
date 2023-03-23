@@ -47,37 +47,37 @@ export function handleIncrementMillionTimes() {
 
 // --> Stores for export.
 export const counterStore = setStore(0)
-  .on(increment.event, count => count + 1)
-  .on(decrement.event, count => count - 1)
+  .on(increment, count => count + 1)
+  .on(decrement, count => count - 1)
   .on(_asyncIncrement.fulfilled, (count, payload) => count + payload)
-  .clear(reset.event);
+  .clear(reset);
 
 export const dividedByFiveStore = setComputedStore({
   store: counterStore,
   condition: value => value % 5 === 0,
-}).clear(reset.event);
+});
 
 export const evenStore = setComputedStore({
   store: counterStore,
   condition: value => value % 2 === 0,
-}).clear(reset.event);
+});
 
 export const isEvenStore = setComputedStore({
   store: counterStore,
   transform: value => value !== 0 && value % 2 === 0,
-}).clear(reset.event);
+});
 
 export const millionIncrementsPerformanceStore = setStore(0)
-  .on(_setPerformance.event, (_, payload) => Math.floor(payload))
-  .clear(reset.event);
+  .on(_setPerformance, (_, payload) => Math.floor(payload))
+  .clear(reset);
 
 export const isLoadingStore = setStore(false)
   .on(_asyncIncrement.pending, () => true)
   .on(_asyncIncrement.fulfilled, () => false)
   .on(_asyncIncrement.rejected, () => false)
-  .clear(reset.event);
+  .clear(reset);
 
 export const errorStore = setStore('')
   .on(_asyncIncrement.rejected, (_, payload) => payload.message)
   .clear(_asyncIncrement.pending)
-  .clear(reset.event);
+  .clear(reset);

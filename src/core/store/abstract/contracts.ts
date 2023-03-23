@@ -15,9 +15,9 @@ export namespace SetAsyncEvent {
   export interface Return<Args, Payload> {
     (...args: Args[]): Promise<unknown>;
 
-    pending: Event<void>;
-    fulfilled: Event<Payload>;
-    rejected: Event<Error>;
+    pending: { event: Event<void> };
+    fulfilled: { event: Event<Payload> };
+    rejected: { event: Event<Error> };
   }
 }
 

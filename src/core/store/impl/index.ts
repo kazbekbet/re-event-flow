@@ -33,9 +33,9 @@ export function setAsyncEvent<Args, Payload>(
       .catch(error => rejectedEvent.fire(error));
   }
 
-  fireAsync.pending = pendingEvent;
-  fireAsync.fulfilled = fulfilledEvent;
-  fireAsync.rejected = rejectedEvent;
+  fireAsync.pending = { event: pendingEvent };
+  fireAsync.fulfilled = { event: fulfilledEvent };
+  fireAsync.rejected = { event: rejectedEvent };
 
   return fireAsync;
 }
@@ -72,8 +72,8 @@ export function setComputedStore<
     fn: val => updateEvent(val),
   });
 
-  return new Store(transformValue(store.getState())).on(
-    updateEvent.event,
+  return new Store(transformValue(store.getState()), {}).on(
+    updateEvent,
     (_, payload) => transformValue(payload)
   );
 }
