@@ -4,4 +4,5 @@ export {
   setStore,
   setAsyncEvent,
   setComputedStore,
+  redirect,
 } from './core/store';

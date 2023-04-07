@@ -3,6 +3,7 @@ import {
   setStore,
   setEvent,
   setAsyncEvent,
+  redirect,
 } from '../../../../index';
 import { asyncCount } from './api';
 
@@ -16,6 +17,9 @@ interface AsyncIncrementPayload {
 export const increment = setEvent();
 export const decrement = setEvent();
 export const reset = setEvent();
+export const callMillionTimes = redirect({
+  handler: _handleIncrementMillionTimes,
+});
 
 // --> Events private (use underscore).
 export const _setPerformance = setEvent<number>();
@@ -35,7 +39,7 @@ export function handleAsyncIncrementError() {
   _asyncIncrement({ delay: 1000, countTo: 1000, isReject: true });
 }
 
-export function handleIncrementMillionTimes() {
+function _handleIncrementMillionTimes() {
   const now = performance.now();
 
   for (let i = 0; i <= 1_000_000; i++) {

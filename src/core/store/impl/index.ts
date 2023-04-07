@@ -47,6 +47,21 @@ async function promisifyFn<Args, Payload>(
   return await asyncFn(...args);
 }
 
+export function redirect<Payload>({
+  event = setEvent<Payload>(),
+  handler,
+}: {
+  event?: SetEvent.Return<Payload>;
+  handler: Function;
+}) {
+  setStore(handler).on(event, memoizedHandler => {
+    memoizedHandler();
+    return memoizedHandler;
+  });
+
+  return event;
+}
+
 export function setStore<Val>(initialValue: Val, options?: StoreOptions) {
   return new Store(initialValue, options);
 }
