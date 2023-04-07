@@ -17,7 +17,7 @@ interface AsyncIncrementPayload {
 export const increment = setEvent();
 export const decrement = setEvent();
 export const reset = setEvent();
-export const callMillionTimes = redirect({
+export const incrementMillionTimes = redirect({
   handler: _handleIncrementMillionTimes,
 });
 

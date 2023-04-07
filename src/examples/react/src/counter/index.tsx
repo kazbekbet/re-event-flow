@@ -98,7 +98,7 @@ function Buttons() {
         Async increment
       </button>
       <button onClick={model.handleAsyncIncrementError}>Async error</button>
-      <button onClick={model.callMillionTimes}>
+      <button onClick={model.incrementMillionTimes}>
         Increment 1M times
       </button>
       <button onClick={model.reset}>Reset</button>
