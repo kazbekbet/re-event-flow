@@ -14,10 +14,11 @@ export function redirect<Payload>({
   handler,
 }: {
   event?: SetEvent.Return<Payload>;
-  handler: Function;
+  handler: (val: Payload) => unknown;
 }) {
-  setStore(handler).on(event, memoizedHandler => {
-    memoizedHandler();
+  setStore(handler).on(event, (memoizedHandler, payload) => {
+    memoizedHandler(payload);
+
     return memoizedHandler;
   });
 
