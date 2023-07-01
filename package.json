@@ -9,13 +9,21 @@
     "type": "git",
     "url": "git+ssh://git@github.com/kazbekbet/re-event.git"
   },
+  "scripts": {
+    "build": "webpack --mode production"
+  },
   "homepage": "https://github.com/kazbekbet/re-event",
   "devDependencies": {
+    "core-js": "^3.31.0",
     "prettier": "^2.8.6",
-    "typescript": "^4.4.2"
+    "ts-loader": "^9.4.4",
+    "typescript": "^4.4.2",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "use-sync-external-store": "^1.2.0",
-    "@types/use-sync-external-store": "^0.0.3"
+    "@types/use-sync-external-store": "^0.0.3",
+    "react": "^18.2.0",
+    "use-sync-external-store": "^1.2.0"
   }
 }

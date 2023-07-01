@@ -1,4 +1,4 @@
-import { useStore } from '../../../../react';
+import { useStore } from 're-event';
 import * as model from './model';
 
 /**
