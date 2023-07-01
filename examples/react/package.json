@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "re-event": "https://github.com/kazbekbet/re-event.git#bundling",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   entry: './src/index.ts',
   output: {
-    filename: 're-event.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
     library: 're-event',
     libraryTarget: 'umd',

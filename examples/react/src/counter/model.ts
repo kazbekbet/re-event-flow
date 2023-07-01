@@ -4,7 +4,7 @@ import {
   setEvent,
   setAsyncEvent,
   redirect,
-} from 're-event/dist';
+} from 're-event/src';
 import { asyncCount } from './api';
 
 interface AsyncIncrementPayload {

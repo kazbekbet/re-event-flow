@@ -880,8 +880,9 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-"re-event@file:../..":
+"re-event@https://github.com/kazbekbet/re-event.git#bundling":
   version "0.1.1"
+  resolved "https://github.com/kazbekbet/re-event.git#e074a124dba6ebe254b18213242386069b390998"
   dependencies:
     "@types/use-sync-external-store" "^0.0.3"
     react "^18.2.0"

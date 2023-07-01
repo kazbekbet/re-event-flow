@@ -1,4 +1,4 @@
-import { useStore } from 're-event';
+import { useStore } from 're-event/src';
 import * as model from './model';
 
 /**
