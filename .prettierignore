@@ -1,0 +1,10 @@
+# dependencies
+node_modules
+
+# Ignore files
+*.json
+*.scss
+*.css
+*.md
+*.html
+*.svg
