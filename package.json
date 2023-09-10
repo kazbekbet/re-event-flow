@@ -1,5 +1,5 @@
 {
-  "name": "re-event",
+  "name": "re-event-flow",
   "private": false,
   "version": "0.1.0",
   "type": "module",
@@ -7,7 +7,6 @@
   "types": "dist/main.d.ts",
   "author": "kazbekbet",
   "license": "MIT",
-  "readme": "README.md",
   "description": "Light state manager stream based",
   "keywords": [
     "state",
@@ -16,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/kazbekbet/re-event.git"
+    "url": "git+ssh://git@github.com/kazbekbet/re-event-flow.git"
   },
   "homepage": "https://github.com/kazbekbet/re-event",
   "files": [
@@ -79,5 +78,11 @@
   },
   "dependencies": {
     "use-sync-external-store": "1.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/kazbekbet/re-event/issues"
+  },
+  "directories": {
+    "lib": "lib"
   }
 }
