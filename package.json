@@ -8,6 +8,12 @@
   "author": "kazbekbet",
   "license": "MIT",
   "readme": "README.md",
+  "description": "Light state manager stream based",
+  "keywords": [
+    "state",
+    "manager",
+    "stream"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/kazbekbet/re-event.git"
