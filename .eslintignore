@@ -1,0 +1,9 @@
+# files
+yarn.lock
+.eslintrc.js
+vite.config.ts
+
+# dependencies
+dist/
+build/
+node_modules/
