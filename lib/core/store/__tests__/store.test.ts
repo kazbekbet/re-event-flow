@@ -92,8 +92,9 @@ describe('Store', () => {
       const inc = setEvent<number>();
       const setStr = setEvent<string>();
 
-      // Heterogeneous payloads typed via any to keep characterization simple.
-      const store = setStore<any>({ count: 0, label: 'a' })
+      // Heterogeneous payloads — store state holds both fields.
+      type State = { count: number; label: string };
+      const store = setStore<State>({ count: 0, label: 'a' })
         .on(inc, (state, payload: number) => ({ ...state, count: state.count + payload }))
         .on(setStr, (state, payload: string) => ({ ...state, label: payload }));
 
@@ -154,7 +155,9 @@ describe('Store', () => {
     it('invokes the watcher with the new state after .on', () => {
       const set = setEvent<number>();
       const watcher = jest.fn();
-      const store = setStore(0).on(set, (_s, p) => p).watch(watcher);
+      const store = setStore(0)
+        .on(set, (_s, p) => p)
+        .watch(watcher);
 
       set(42);
 
@@ -249,7 +252,9 @@ describe('Store', () => {
       const set = setEvent<number>();
       const reset = setEvent<void>();
       const listener = jest.fn();
-      const store = setStore(0).on(set, (_s, p) => p).clear(reset);
+      const store = setStore(0)
+        .on(set, (_s, p) => p)
+        .clear(reset);
 
       store.subscribe(listener);
 

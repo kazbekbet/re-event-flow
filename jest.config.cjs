@@ -6,6 +6,9 @@ module.exports = {
   testMatch: ['**/__tests__/**/*.test.ts', '**/?(*.)+(test|spec).ts', '**/?(*.)+(test|spec).tsx'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', { tsconfig: { jsx: 'react-jsx', esModuleInterop: true, allowImportingTsExtensions: false } }],
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      { tsconfig: { jsx: 'react-jsx', esModuleInterop: true, allowImportingTsExtensions: false } },
+    ],
   },
 };

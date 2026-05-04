@@ -1,5 +1,4 @@
-import { setEvent } from '../impl/creators';
-import { setStore } from '../impl/creators';
+import { setEvent, setStore } from '../impl/creators';
 import { EventImpl } from '../impl/event';
 
 /**

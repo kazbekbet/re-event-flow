@@ -26,10 +26,7 @@ describe('setAsyncEvent', () => {
     const fireAsync = setAsyncEvent<number, number>(asyncFn);
 
     const pendingCount = setStore(0).on(fireAsync.pending, state => state + 1);
-    const fulfilledValue = setStore<number | null>(null).on(
-      fireAsync.fulfilled,
-      (_state, payload) => payload
-    );
+    const fulfilledValue = setStore<number | null>(null).on(fireAsync.fulfilled, (_state, payload) => payload);
     const rejectedCount = setStore(0).on(fireAsync.rejected, state => state + 1);
 
     await fireAsync(21);
@@ -87,10 +84,7 @@ describe('setAsyncEvent', () => {
     const fireAsync = setAsyncEvent<void, string>(asyncFn);
 
     const pendingCount = setStore(0).on(fireAsync.pending, state => state + 1);
-    const fulfilledLog = setStore<string[]>([]).on(
-      fireAsync.fulfilled,
-      (state, payload) => [...state, payload]
-    );
+    const fulfilledLog = setStore<string[]>([]).on(fireAsync.fulfilled, (state, payload) => [...state, payload]);
 
     await fireAsync();
     await fireAsync();

@@ -1,6 +1,6 @@
-import '@testing-library/jest-dom';
-import { act, cleanup, render, renderHook, screen } from '@testing-library/react';
 import * as React from 'react';
+
+import { act, cleanup, render, renderHook, screen } from '@testing-library/react';
 
 import { setEvent, setStore } from '../../core';
 import { useStore } from '../hooks/use-store';
@@ -18,6 +18,8 @@ import { useStore } from '../hooks/use-store';
  *    `notifyViewListeners` is only called from the reducer pipeline.
  */
 
+const text = (testId: string) => screen.getByTestId(testId).textContent;
+
 afterEach(() => {
   cleanup();
 });
@@ -33,7 +35,7 @@ describe('useStore', () => {
 
     render(<Counter />);
 
-    expect(screen.getByTestId('value')).toHaveTextContent('7');
+    expect(text('value')).toBe('7');
   });
 
   it('re-renders on store update via fired event', () => {
@@ -47,19 +49,19 @@ describe('useStore', () => {
     }
 
     render(<Counter />);
-    expect(screen.getByTestId('value')).toHaveTextContent('0');
+    expect(text('value')).toBe('0');
 
     act(() => {
       increment(5);
     });
 
-    expect(screen.getByTestId('value')).toHaveTextContent('5');
+    expect(text('value')).toBe('5');
 
     act(() => {
       increment(3);
     });
 
-    expect(screen.getByTestId('value')).toHaveTextContent('8');
+    expect(text('value')).toBe('8');
   });
 
   it('does not re-render when an unrelated store changes', () => {
@@ -89,7 +91,7 @@ describe('useStore', () => {
 
     // A's render count should NOT have increased due to B mutating.
     expect(renderSpyA).toHaveBeenCalledTimes(initialRenderCount);
-    expect(screen.getByTestId('a')).toHaveTextContent('0');
+    expect(text('a')).toBe('0');
 
     act(() => {
       incA();
@@ -97,7 +99,7 @@ describe('useStore', () => {
 
     // After A's own event fires, render count must increase.
     expect(renderSpyA.mock.calls.length).toBeGreaterThan(initialRenderCount);
-    expect(screen.getByTestId('a')).toHaveTextContent('1');
+    expect(text('a')).toBe('1');
   });
 
   it('multiple components reading the same store all update on a single event fire', () => {
@@ -128,17 +130,17 @@ describe('useStore', () => {
       </>
     );
 
-    expect(screen.getByTestId('one')).toHaveTextContent('1');
-    expect(screen.getByTestId('two')).toHaveTextContent('1');
-    expect(screen.getByTestId('three')).toHaveTextContent('1');
+    expect(text('one')).toBe('1');
+    expect(text('two')).toBe('1');
+    expect(text('three')).toBe('1');
 
     act(() => {
       setValue(42);
     });
 
-    expect(screen.getByTestId('one')).toHaveTextContent('42');
-    expect(screen.getByTestId('two')).toHaveTextContent('42');
-    expect(screen.getByTestId('three')).toHaveTextContent('42');
+    expect(text('one')).toBe('42');
+    expect(text('two')).toBe('42');
+    expect(text('three')).toBe('42');
   });
 
   it('unmount unsubscribes the listener (viewListeners shrinks back)', () => {
@@ -191,13 +193,13 @@ describe('useStore', () => {
     render(<View />);
 
     const baseline = renderSpy.mock.calls.length;
-    expect(screen.getByTestId('obj')).toHaveTextContent('0');
+    expect(text('obj')).toBe('0');
 
     act(() => {
       replace({ count: 9 });
     });
 
-    expect(screen.getByTestId('obj')).toHaveTextContent('9');
+    expect(text('obj')).toBe('9');
     expect(renderSpy.mock.calls.length).toBeGreaterThan(baseline);
   });
 
@@ -227,7 +229,7 @@ describe('useStore', () => {
     // Render count is unchanged — quirk documented.
     expect(renderSpy.mock.calls.length).toBe(baseline);
     // The DOM still reflects the previously rendered value.
-    expect(screen.getByTestId('obj')).toHaveTextContent('0');
+    expect(text('obj')).toBe('0');
   });
 
   it('works inside React.StrictMode without crashing or losing updates', () => {
@@ -248,19 +250,19 @@ describe('useStore', () => {
       )
     ).not.toThrow();
 
-    expect(screen.getByTestId('strict')).toHaveTextContent('0');
+    expect(text('strict')).toBe('0');
 
     act(() => {
       inc();
     });
 
-    expect(screen.getByTestId('strict')).toHaveTextContent('1');
+    expect(text('strict')).toBe('1');
 
     act(() => {
       inc();
     });
 
-    expect(screen.getByTestId('strict')).toHaveTextContent('2');
+    expect(text('strict')).toBe('2');
   });
 
   it('returns the up-to-date value synchronously after an event fire', () => {

@@ -163,7 +163,9 @@ describe('setComputedStore', () => {
     //   2. The computed continues to receive updates from the (re-initialized) source.
     const update = setEvent<number>();
     const destroy = setEvent<void>();
-    const source = setStore(0).on(update, (_s, p) => p).destroy(destroy.event);
+    const source = setStore(0)
+      .on(update, (_s, p) => p)
+      .destroy(destroy.event);
 
     const computed = setComputedStore<number, number>({
       store: source,

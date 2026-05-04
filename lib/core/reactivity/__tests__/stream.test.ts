@@ -1,5 +1,5 @@
-import { StreamImpl } from '../impl/stream';
 import type { Subscriber } from '../abstract/subscriber';
+import { StreamImpl } from '../impl/stream';
 
 /**
  * Characterization tests for StreamImpl.

@@ -128,8 +128,7 @@ describe('setStore', () => {
 
     it('includes the configured name in the log output (primitive)', () => {
       const inc = setEvent<number>();
-      setStore(0, { attachLogger: true, name: 'myCoolStore' })
-        .on(inc, (s, p) => s + p);
+      setStore(0, { attachLogger: true, name: 'myCoolStore' }).on(inc, (s, p) => s + p);
 
       inc(1);
 

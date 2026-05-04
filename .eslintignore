@@ -2,6 +2,7 @@
 yarn.lock
 .eslintrc.js
 vite.config.ts
+jest.config.cjs
 
 # dependencies
 dist/
